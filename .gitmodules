@@ -1,0 +1,9 @@
+[submodule "lab02_4layers/business_logic"]
+	path = lab02_4layers/business_logic
+	url = https://github.com/angel4uu/as-lab2-businesslogic
+[submodule "lab02_4layers/presentation"]
+	path = lab02_4layers/presentation
+	url = https://github.com/angel4uu/as-lab2-presentation
+[submodule "lab02_4layers/services"]
+	path = lab02_4layers/services
+	url = https://github.com/angel4uu/as-lab2-services
