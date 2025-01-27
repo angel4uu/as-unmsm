@@ -1,0 +1,36 @@
+services:
+  presentation:
+    build: 
+      context: ./presentation
+      dockerfile: Dockerfile
+    ports:
+      - "3000:5173"
+    volumes:
+      - ./presentation/src:/usr/src/app/src
+  business_logic:
+    build: 
+      context: ./business_logic
+      dockerfile: Dockerfile
+    ports:
+      - "4000:3000"
+    volumes:
+      - ./business_logic/src:/usr/src/app/src
+  services:
+    build: 
+      context: ./services
+      dockerfile: Dockerfile
+    ports:
+      - "5000:3000"
+    volumes:
+      - ./services/src:/usr/src/app/src
+  data_access:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: university
+    volumes:
+      - ./data:/data
+      - ./scripts:/docker-entrypoint-initdb.d
