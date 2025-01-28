@@ -5,8 +5,15 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:5173"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+      - FAST_REFRESH=false
+      - WDS_SOCKET_PORT=3000
     volumes:
       - ./presentation/src:/usr/src/app/src
+    networks:
+      - 4layers_network
   business_logic:
     build: 
       context: ./business_logic
@@ -15,6 +22,8 @@ services:
       - "4000:3000"
     volumes:
       - ./business_logic/src:/usr/src/app/src
+    networks:
+      - 4layers_network
   services:
     build: 
       context: ./services
@@ -23,6 +32,8 @@ services:
       - "5000:3000"
     volumes:
       - ./services/src:/usr/src/app/src
+    networks:
+      - 4layers_network
   data_access:
     image: postgres
     ports:
@@ -34,3 +45,8 @@ services:
     volumes:
       - ./data:/data
       - ./scripts:/docker-entrypoint-initdb.d
+    networks:
+      - 4layers_network
+networks:
+  4layers_network:
+    driver: bridge
